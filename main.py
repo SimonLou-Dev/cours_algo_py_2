@@ -1,5 +1,6 @@
 import argparse
 import json
+from utils import mesurer_temps_execution
 
 
 def main():
@@ -41,34 +42,24 @@ def main():
     match args.mode:
         case "dfs":
             print("Lancement du DFS")
-            # Lancer le module DFS
             from algos.dfs import run as dfs
-            dfs_rslt = dfs(data["matrices"], data["matrice_start"])
-            print(f"Résultat du DFS : {dfs_rslt}")
+            rslt, time = mesurer_temps_execution(dfs, data["matrices"], data["matrice_start"])
         case "dfs-cycle":
             print("Lancement du DFS avec détection de cycles")
-            # Lancer le module DFS avec détection de cycles
             from algos.dfs import run_cyles as dfs_cycle
-            dfs_cycle_rslt = dfs_cycle(data["matrices"], data["matrice_start"])
-            print(f"Résultat du DFS avec détection de cycles : {dfs_cycle_rslt}")
+            rslt, time = mesurer_temps_execution(dfs_cycle, data["matrices"], data["matrice_start"])
         case "bfs":
             print("Lancement du BFS")
-            # Lancer le module BFS
             from algos.bfs import run as bfs
-            bfs_rslt = bfs(data["matrices"], data["matrice_start"])
-            print(f"Résultat du BFS : {bfs_rslt}")
+            rslt, time = mesurer_temps_execution(bfs, data["matrices"], data["matrice_start"])
         case "bfs-connexe":
             print("Lancement du BFS avec détection de connexité")
-            # Lancer le module BFS avec détection de connexité
             from algos.bfs import run_find_connexe as bfs_connexe
-            bfs_connexe_rslt = bfs_connexe(data["matrices"])
-            print(f"Résultat du BFS avec détection de connexité : {bfs_connexe_rslt}")
+            rslt, time = mesurer_temps_execution(bfs_connexe,data["matrices"])
         case "dijkstra":
             print("Lancement de Dijkstra")
-            # Lancer le module Dijkstra
             from algos.dijkstra import dijkstra as dijkstra
-            dijkstra_rslt = dijkstra(data["matrices"], data["matrice_start"])
-            print(f"Résultat de Dijkstra : {dijkstra_rslt}")
+            rslt, time = mesurer_temps_execution(dijkstra, data["matrices"], data["matrice_start"])
         case "bf":
             print("Lancement de Bellman-Ford")
             # Lancer le module Bellman-Ford
@@ -91,6 +82,14 @@ def main():
             print("Mode non reconnu")
             parser.print_help()
             exit(1)
+
+    # ============== Fin du switch ==============
+
+    print("Résultat :")
+    print(rslt)
+    print(f"Temps d'exécution : {time} ms")
+
+    # ============== Fin du programme ==============
 
 
 
