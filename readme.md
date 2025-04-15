@@ -10,7 +10,22 @@ cd ton-projet
 
 # Configuration du json
 
+```json
+{
+  "matrice_start": "",
+  "matrice": {
+    "A": {"B": 4, "C": 2},
+    "B": {"A": 4, "D": 5},
+    "C": {"A": 2, "E": 3},
+    "D": {"B": 5, "F": 6},
+    "E": {"C": 3},
+    "F": {"D": 6}
+  }
+}
+```
 
+`matrice_start` : sommet de départ pour le parcours du graphe
+`matrice` : représentation du graphe sous forme de dictionnaire où chaque clé est un sommet et la valeur est un dictionnaire des voisins avec les poids des arêtes.
 
 # Exercice 1 : Recherche et Parcours de Graphes
 ## Le [BFS](./algos/bfs.py)
