@@ -3,7 +3,7 @@
 {
 	"name": "Algo python",
 	"image": "mcr.microsoft.com/devcontainers/python:1-3.12-bullseye",
-	"postCreateCommand": "pip install ruff pytest && pip3 install --user -r requirements.txt",
+	"postCreateCommand": "pip install ruff pytest",
 	"customizations": {
 		"extensions": [
 			"ms-python.python",
