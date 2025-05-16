@@ -4,6 +4,9 @@
 	"name": "Algo python",
 	"image": "mcr.microsoft.com/devcontainers/python:1-3.12-bullseye",
 	"postCreateCommand": "pip install ruff pytest",
+	"mounts": [
+	    "type=bind,source=${localEnv:HOME}/.ssh,target=/root/.ssh,readonly",
+	],
 	"customizations": {
 		"vscode": {
 			"extensions": [
