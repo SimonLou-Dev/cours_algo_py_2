@@ -197,6 +197,12 @@ La détection des cycles négatif se fait grâce à la boucle suivante dans le p
 Comment cela fonctionne ?
 > Gràce à l'instruction `Pour i allant de 0 à nombre de sommet du graph - 1` dans le pseudo-code, les distance minimal vont se propager jusqu'à sommets les plus loins. Si il est encore possible d'améliorer ce résultat alors que toutes les distances ont été propagées au plus loins, alors le graph contient un cycle négatif.
 
+Lancement du code
+
+```bash
+python main.py bf-neg
+```
+
 4. Les cycles négatif dans la pratique
 Les cycles négatif ne peuvent pas s'appliquer dans les réseaux informatique car les distances ou les couts sont physique donc par définition toujours positifs.
 
@@ -210,3 +216,104 @@ La complexité temporelle de Bellman-Ford est O(VE), car on parcourt toutes les 
 La complexité spatiale est O(V), car on stocke uniquement un tableau (ou dictionnaire) de distances pour chaque sommet.
 
 6. Comparaison avec Dijkstra
+
+L’algorithme de Bellman-Ford permet de calculer les plus courts chemins depuis un sommet, même en présence de poids négatifs, et peut détecter les cycles de poids négatif. En revanche, il est plus lent avec une complexité en temps de O(VE). L’algorithme de Dijkstra est plus rapide (O((V + E) log V)) mais ne fonctionne que si tous les poids sont positifs. Dijkstra est donc souvent préféré pour les graphes classiques (réseaux, cartes), tandis que Bellman-Ford est utile pour des cas plus généraux ou complexes. Le choix dépend du type de graphe et des contraintes sur les poids.
+
+# Exercice 4 : l'algorithmes de Ford-Fulkerson et Edmonds-Karp
+
+1. Pseudo code Ford-Fulkerson
+
+```
+fonction BFS(source, puits, graph, parent):
+    initialiser file ← [source]
+    initialiser ensemble visité ← {source}
+    tant que la file n’est pas vide :
+        u ← retirer un sommet de la file
+        pour chaque voisin v de u :
+            si v non visité et capacité résiduelle (u, v) > 0 :
+                file ← file + [v]
+                parent[v] ← u
+                ajouter v à visité
+                si v == puits :
+                    retourner Vrai
+    retourner Faux
+
+fonction FordFulkerson(graph, source, puits):
+    initialiser parent[v] ← None pour chaque sommet v
+    flot_max ← 0
+
+    tant que BFS(source, puits) retourne Vrai :
+        chemin ← chemin reconstruit depuis parent
+        flot_chemin ← capacité minimale sur ce chemin
+        pour chaque arête (u, v) du chemin :
+            diminuer capacité de (u, v) de flot_chemin
+            augmenter capacité de (v, u) de flot_chemin
+        flot_max ← flot_max + flot_chemin
+
+    retourner flot_max
+```
+
+
+2. Implémentation et test de l'algorithme [Ford-Fulkerson](./algos/ff.py)
+```bash
+python main.py ff
+```
+
+3. Analyse de la complexité de l'algorithme Ford-Fulkerson
+
+La complexité temporelle de l’algorithme de Ford-Fulkerson dépend du nombre d’itérations nécessaires pour atteindre le flot maximal. À chaque itération, on cherche un chemin augmentant, ce qui prend O(E) dans le cas d’une recherche en profondeur (DFS), et le flot est augmenté d’au moins une unité à chaque fois. Si le flot maximum est F, la complexité temporelle est donc O(F × E).
+
+La complexité spatiale, l’algorithme utilise un dictionnaire pour suivre les parents des sommets soit O(V).
+
+4. Pseudo code Edmonds-Karp
+
+```
+fonction BFS(source, puits,  graph, parent):
+    créer une file queue ← [source]
+    créer un ensemble visité ← {source}
+    tant que queue n’est pas vide :
+        u ← queue.pop()
+        pour chaque voisin v de u :
+            si v non visité et capacité résiduelle graph[u][v] > 0 :
+                parent[v] ← u
+                ajouter v à queue
+                ajouter v à visité
+                si v = puits :
+                    retourner Vrai
+    retourner Faux
+
+fonction EdmondsKarp(graph, source, puits):
+    initialiser parent[v] ← None pour tout sommet v
+    max_flow ← 0
+
+    tant que BFS(source, puits) est Vrai :
+        chemin ← reconstruit depuis parent[]
+        path_flow ← +∞
+        s ← puits
+        tant que s ≠ source :
+            path_flow ← min(path_flow, graph[parent[s]][s])
+            s ← parent[s]
+        max_flow ← max_flow + path_flow
+
+        mettre à jour les capacités résiduelles :
+        v ← puits
+        tant que v ≠ source :
+            u ← parent[v]
+            graph[u][v] ← graph[u][v] - path_flow
+            graph[v][u] ← graph[v][u] + path_flow
+            v ← parent[v]
+
+    retourner max_flow
+```
+
+5. Implémentation et test de l'algorithme [Edmonds-Karp](./algos/ek.py)
+
+6. Analyse de la complexité de l'algorithme Edmonds-Karp
+
+L’algorithme d’Edmonds-Karp a une complexité temporelle de O(V × E²), où V est le nombre de sommets et E le nombre d’arêtes. Cette complexité vient du fait qu’il utilise une recherche en largeur (BFS) pour trouver les chemins augmentants les plus courts, ce qui prend O(E) par itération, et qu’il peut y avoir au plus O(V × E) itérations. 
+
+Du côté mémoire, il utilise O(E) d’espace pour stocker le tableau les parents.
+
+7. Discuter des cas où Edmonds-Karp est préférable à Ford-Fulkerson.
+
+L’algorithme d’Edmonds-Karp est préférable à Ford-Fulkerson dans les cas où l’on souhaite garantir une terminaison plus rapide, notamment lorsque les capacités des arêtes sont grandes. En effet, Ford-Fulkerson simple peut effectuer un très grand nombre d’itérations si le flot est incrémenté par de très petites quantités (par exemple 1 unité à la fois sur des capacités très grandes), ce qui peut rendre sa complexité exponentielle dans le pire cas. Edmonds-Karp, en utilisant une recherche en largeur (BFS) pour toujours choisir le chemin augmentant le plus court (en nombre d’arêtes), évite ce problème et garantit une complexité polynomiale (O(V × E²)). Il est donc particulièrement adapté aux grands graphes ou aux applications critiques (comme les réseaux de transport ou de communication) où la performance prévisible est essentielle.
