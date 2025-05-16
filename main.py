@@ -19,6 +19,7 @@ def main():
     subparsers.add_parser("bfs-connexe", help="Lancer un BFS qui permet de trouver les sommets connexes")
     subparsers.add_parser("dijkstra", help="Lancer Dijkstra")
     subparsers.add_parser("bf", help="Lancer Bellman-Ford")
+    subparsers.add_parser("bf-neg", help="Lancer Bellman-Ford avec détection des cyles négatifs")
     subparsers.add_parser("ff", help="Lancer Floyd-Warshall")
     subparsers.add_parser("ek", help="Lancer Edmonds-Karp")
     subparsers.add_parser("rand", help="Tri random")
@@ -63,9 +64,23 @@ def main():
         case "bf":
             print("Lancement de Bellman-Ford")
             # Lancer le module Bellman-Ford
+            from algos.bellman_ford import bellman_ford
+            rslt, time = mesurer_temps_execution(bellman_ford, data["matrices"], data["matrice_start"])
+        case "bf-neg":
+            print("Lancement de Floyd-Warshall")
+            from algos.bellman_ford import bellman_ford, bellman_ford_contains_neg
+            rslt1, time1 = mesurer_temps_execution(bellman_ford, data["matrices"], data["matrice_start"])
+            rslt2, time2 = mesurer_temps_execution(bellman_ford_contains_neg, rslt1, data["matrices"])
+            time = time1 + time2
+
+            rslt = {
+                "Résultat de Bellman-Forst": rslt1,
+                "Contient un cycle de poid négatif": rslt2
+            }
+
         case "ff":
             print("Lancement de Floyd-Warshall")
-            # Lancer le module Floyd-Warshall
+
         case "ek":
             print("Lancement d'Edmonds-Karp")
             # Lancer le module Edmonds-Karp
