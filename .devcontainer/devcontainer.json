@@ -5,7 +5,11 @@
 	"image": "mcr.microsoft.com/devcontainers/python:1-3.12-bullseye",
 	"postCreateCommand": "pip install ruff pytest",
 	"mounts": [
-	    "type=bind,source=${localEnv:HOME}/.ssh,target=/vscode/.ssh,readonly",
+		{
+			"source": "${localEnv:HOME}/.ssh",
+			"target": "/vscode/.ssh",
+			"type": "bind"
+		}
 	],
 	"customizations": {
 		"vscode": {
@@ -15,22 +19,22 @@
 			]
 		},
 		"settings": {
-			    "[python]": {
-			        "editor.codeActionsOnSave": {
-			            "source.fixAll.ruff": "always",
-			            "source.organizeImports.ruff": "always",
-			            "source.convertImportFormat": "always"
-			        },
-			        "editor.formatOnSave": true,
-			        "editor.formatOnType": true,
-			        "editor.defaultFormatter": "charliermarsh.ruff"
-			    },
-			    "ruff.lint.select": [
-			        "ALL"
-			    ],
-			    "files.exclude": {
-			        "**/__pycache__": true
-			    }
+			"[python]": {
+				"editor.codeActionsOnSave": {
+					"source.fixAll.ruff": "always",
+					"source.organizeImports.ruff": "always",
+					"source.convertImportFormat": "always"
+				},
+				"editor.formatOnSave": true,
+				"editor.formatOnType": true,
+				"editor.defaultFormatter": "charliermarsh.ruff"
+			},
+			"ruff.lint.select": [
+				"ALL"
+			],
+			"files.exclude": {
+				"**/__pycache__": true
+			}
 		}
 	}
 }
