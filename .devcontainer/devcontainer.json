@@ -6,8 +6,8 @@
 	"postCreateCommand": "pip install ruff pytest",
 	"mounts": [
 		{
-			"source": "${localEnv:HOME}/.ssh",
-			"target": "/vscode/.ssh",
+			"source": "${localEnv:HOME}/ssh-devpod",
+			"target": "/home/vscode/.ssh",
 			"type": "bind"
 		}
 	],
