@@ -13,6 +13,7 @@ cd ton-projet
 ```json
 {
   "matrice_start": "",
+  "matrice_end": "",
   "matrice": {
     "A": {"B": 4, "C": 2},
     "B": {"A": 4, "D": 5},
@@ -24,8 +25,9 @@ cd ton-projet
 }
 ```
 
-`matrice_start` : sommet de départ pour le parcours du graphe
-`matrice` : représentation du graphe sous forme de dictionnaire où chaque clé est un sommet et la valeur est un dictionnaire des voisins avec les poids des arêtes.
+`matrice_start` : sommet de départ pour le parcours du graphe<br>
+`matrice_end` : sommet de fin pour le parcours du graphe<br>
+`matrice` : représentation du graphe sous forme de dictionnaire où chaque clé est un sommet et la valeur est un dictionnaire des voisins avec les poids des arêtes.<br>
 
 # Exercice 1 : Recherche et Parcours de Graphes
 ## Le [BFS](./algos/bfs.py)
