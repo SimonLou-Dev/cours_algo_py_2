@@ -1,4 +1,4 @@
-from algos.bfs import bfs_boolean
+from app.algos.bfs import bfs_boolean
 
 
 def edmonds_karp(graph: dict[str, list], source: str, dest: str):

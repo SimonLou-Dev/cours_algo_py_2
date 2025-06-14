@@ -28,12 +28,29 @@ cd ton-projet
 `matrice_start` : sommet de départ pour le parcours du graphe<br>
 `matrice_end` : sommet de fin pour le parcours du graphe<br>
 `matrice` : représentation du graphe sous forme de dictionnaire où chaque clé est un sommet et la valeur est un dictionnaire des voisins avec les poids des arêtes.<br>
+`rand_list`: List utilisée pour le tri<br>
+`tree`: Déclarer un arbre<br>
+`number_list`: Déclarer une liste de nom à inserrer  dans l'arbre<br>
+`sat_clauses`: <br>
+`tsp_matrix`: <br>
+
+# Lancement
+
+## Via le menu
+```bash
+python -m app.main
+```
+
+## Via CLI
+```bash
+python -m app.main -h
+```
 
 # Exercice 1 : Recherche et Parcours de Graphes
 ## Le [BFS](./algos/bfs.py)
 1. Execution
 ```bash
-python main.py bfs
+python -m app.main bfs
 ```
 2. Temps d'éxécution
 
@@ -48,7 +65,7 @@ La complexité spatiale est également O(V) car on doit stocker les sommets visi
 ## Le DFS [dfs](./algos/dfs.py)
 1. Execution
 ```bash
-python main.py dfs
+python -m app.main dfs
 ```
 2. Temps d'éxécution
 
@@ -61,12 +78,12 @@ La complexité spatiale est O(V) car on doit stocker les sommets visités et la 
 
 ## BFS avec détection des composantes connexes [bfs connexe](./algos/bfs.py)
 ```bash
-python main.py bfs-connexe 
+python -m app.main bfs-connexe 
 ```
 
 ## DFS avec détéction de cycle [dfs cycle](./algos/dfs.py)
 ```bash
-python main.py dfs_cycle
+python -m app.main dfs_cycle
 ```
 ## Préférence du DFS ou du BFS
 
@@ -111,7 +128,7 @@ Retourner distance
 
 2. Implémentation de l'algorithme [dijkstra](./algos/dijkstra.py)
 ```bash
-python main.py dijkstra
+python -m app.main dijkstra
 ```
 
 3. Résolution du problème du plus court chemin
@@ -176,7 +193,7 @@ retourner distance
 
 2. Implémentation et test de l'algorithme [bellman-ford](./algos/bellman-ford.py)
 ```bash
-python main.py bf
+python -m app.main bf
 ```
 
 3. Détection des cycles négatif
@@ -202,7 +219,7 @@ Comment cela fonctionne ?
 Lancement du code
 
 ```bash
-python main.py bf-neg
+python -m app.main bf-neg
 ```
 
 4. Les cycles négatif dans la pratique
@@ -258,7 +275,7 @@ fonction FordFulkerson(graph, source, puits):
 
 2. Implémentation et test de l'algorithme [Ford-Fulkerson](./algos/ff.py)
 ```bash
-python main.py ff
+python -m app.main ff
 ```
 
 3. Analyse de la complexité de l'algorithme Ford-Fulkerson

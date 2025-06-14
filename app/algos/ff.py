@@ -1,12 +1,12 @@
-from algos.bfs import bfs_boolean
+from app.algos.bfs import bfs_boolean
 
 
 def ford_fulkerson(graph: dict[str, list], source: str, dest: str):
-    parents = {sommet: None for sommet in graph}
+    parents = dict.fromkeys(graph)
     flot_maximum = 0
 
     while bfs_boolean(graph=graph, source=source, sink=dest, parent=parents):
-        flot_courant = float('inf')
+        flot_courant = float("inf")
 
         vertex = dest
         while vertex != source:
