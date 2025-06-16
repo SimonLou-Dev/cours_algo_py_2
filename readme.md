@@ -336,3 +336,119 @@ Du côté mémoire, il utilise O(E) d’espace pour stocker le tableau les paren
 7. Discuter des cas où Edmonds-Karp est préférable à Ford-Fulkerson.
 
 L’algorithme d’Edmonds-Karp est préférable à Ford-Fulkerson dans les cas où l’on souhaite garantir une terminaison plus rapide, notamment lorsque les capacités des arêtes sont grandes. En effet, Ford-Fulkerson simple peut effectuer un très grand nombre d’itérations si le flot est incrémenté par de très petites quantités (par exemple 1 unité à la fois sur des capacités très grandes), ce qui peut rendre sa complexité exponentielle dans le pire cas. Edmonds-Karp, en utilisant une recherche en largeur (BFS) pour toujours choisir le chemin augmentant le plus court (en nombre d’arêtes), évite ce problème et garantit une complexité polynomiale (O(V × E²)). Il est donc particulièrement adapté aux grands graphes ou aux applications critiques (comme les réseaux de transport ou de communication) où la performance prévisible est essentielle.
+
+
+# Exercice 5 : Tri rapide randomisé
+
+## Le tri rapide randomisé [`rand`](./algos/rand_quicksort.py)
+
+1. Exécution :
+```bash
+python -m app.main rand
+```
+
+2. Exemple :
+La commande trie la liste `[10, 7, 8, 9, 1, 5]` avec un pivot choisi aléatoirement.
+
+3. Comparaison :
+```bash
+python -m app.main rand-compare
+```
+Affiche le temps d’exécution pour le tri rapide déterministe et le tri randomisé sur une grande liste.
+
+4. Complexité :
+- Moyenne : **O(n log n)**
+- Pire cas : **O(n²)** (si les pivots sont mal choisis)
+- Meilleur cas : **O(n log n)**
+
+5. Explication :
+Le tri rapide randomisé utilise un pivot aléatoire à chaque appel récursif, ce qui permet de réduire la probabilité d'atteindre les pires cas.
+
+---
+
+# Exercice 6 : Arbres AVL
+
+## Insertion et suppression dans un AVL [`tree-put`, `tree-del`](./algos/avl.py)
+
+1. Insertion :
+```bash
+python -m app.main tree-put
+```
+Insère les valeurs `[10, 20, 30, 40, 50, 25]` dans un arbre AVL.
+
+2. Suppression :
+```bash
+python -m app.main tree-del
+```
+Supprime la valeur `30` de l’arbre précédent.
+
+3. Vérification d’équilibre :
+```bash
+python -m app.main tree-eq
+```
+
+4. Complexité :
+- Insertion/Suppression/Requêtes : **O(log n)**
+- Stockage : **O(n)**
+
+5. Explication :
+L’arbre AVL rééquilibre automatiquement ses branches à chaque insertion ou suppression via des rotations simples ou doubles pour maintenir une hauteur minimale.
+
+---
+
+# Exercice 7 : Problèmes NP-complets et NP-difficiles
+
+## Vérificateur SAT [`np-sat`](./algos/np_problems.py)
+
+1. Exécution :
+```bash
+python -m app.main np-sat
+```
+
+2. Formule testée :
+```
+(A ∨ ¬B) ∧ (B ∨ C ∨ ¬D) ∧ (¬A ∨ D)
+```
+
+3. Affectation utilisée :
+```python
+{"A": True, "B": False, "C": True, "D": True}
+```
+
+4. Résultat attendu :
+```
+Satisfiable = True
+```
+
+5. Explication :
+Le SAT consiste à vérifier si une formule booléenne est vraie pour une affectation. Ce vérificateur parcourt les clauses et retourne True si toutes sont satisfaites.
+
+---
+
+## Heuristique TSP [`np-tsp`](./algos/np_problems.py)
+
+1. Exécution :
+```bash
+python -m app.main np-tsp
+```
+
+2. Exemple de matrice (4 villes) :
+```
+A  B  C  D
+A  0 10 15 20
+B 10  0 35 25
+C 15 35  0 30
+D 20 25 30  0
+```
+
+3. Résultat attendu :
+```
+Chemin : [0, 1, 3, 2, 0] | Coût : 80
+```
+
+4. Complexité :
+- Approximative : **O(n²)** (heuristique naïve)
+- Exacte (brute force) : **O(n!)**
+
+5. Explication :
+Ce TSP utilise l’heuristique du plus proche voisin. Ce n’est pas optimal, mais efficace pour des petites instances.

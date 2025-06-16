@@ -118,7 +118,7 @@ class AlgorithmType(Enum):
         description="Tri rapide avec pivot randomisé",
         exercise="Exercice 5 : Tri Rapide Randomisé",
         category="Algorithmes de Tri",
-        function=lambda: None,
+        function=lambda: __import__("app.algos.rand_quicksort", fromlist=["quicksort_randomized"]).quicksort_randomized,
         parameters=("rand_list",),
     )
 
@@ -128,7 +128,7 @@ class AlgorithmType(Enum):
         description="Comparaison de différents algorithmes de tri",
         exercise="Comparer les performances entre tris randomisés et tris",
         category="Algorithmes de Tri",
-        function=lambda: None,
+        function=lambda: __import__("app.algos.rand_quicksort", fromlist=["compare_sorts"]).compare_sorts,
         parameters=("rand_list",),
     )
 
@@ -139,7 +139,7 @@ class AlgorithmType(Enum):
         description="Insertion dans un arbre AVL",
         exercise= "Implémenter l'Insertion",
         category="Structures de Données",
-        function=lambda: None,
+        function=lambda: __import__("app.algos.avl", fromlist=["insert"]).insert,
         parameters=("tree", "number_list"),
     )
 
@@ -149,7 +149,7 @@ class AlgorithmType(Enum):
         description="Suppression dans un arbre AVL",
         exercise="Implémenter la suppression",
         category="Structures de Données",
-        function=lambda: None,
+        function=lambda: __import__("app.algos.avl", fromlist=["delete"]).delete,
         parameters=("tree", "number_list"),
     )
 
@@ -160,7 +160,7 @@ class AlgorithmType(Enum):
         description="Analyse d'équilibrage d'un arbre AVL",
         exercise="Analyser et corriger l'équilibrage d'un arbre",
         category="Structures de Données",
-        function=lambda: None,
+        function=lambda: __import__("app.algos.avl", fromlist=["get_balance"]).get_balance,
         parameters=("tree",),
     )
 
@@ -171,7 +171,7 @@ class AlgorithmType(Enum):
         description="Vérificateur pour le problème SAT",
         exercise="Exercice 7 : Problème SAT",
         category="Complexité NP",
-        function=lambda: None,
+        function=lambda: __import__("app.algos.np_problems", fromlist=["is_satisfiable"]).is_satisfiable,
         parameters=("sat_clauses",),
     )
 
@@ -181,7 +181,7 @@ class AlgorithmType(Enum):
         description="Heuristique pour le voyageur de commerce",
         exercise="Implémenter une heuristique pour le TSP",
         category="Complexité NP",
-        function=lambda: None,
+        function=lambda: __import__("app.algos.np_problems", fromlist=["tsp_nearest_neighbor"]).tsp_nearest_neighbor,
         parameters=("tsp_matrix",),
     )
 
