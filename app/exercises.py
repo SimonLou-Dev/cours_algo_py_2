@@ -161,7 +161,7 @@ class AlgorithmType(Enum):
         exercise="Analyser et corriger l'équilibrage d'un arbre",
         category="Structures de Données",
         function=lambda: __import__("app.algos.avl", fromlist=["get_balance"]).get_balance,
-        parameters=("tree",),
+        parameters=("tree"),
     )
 
     # NP Problems
