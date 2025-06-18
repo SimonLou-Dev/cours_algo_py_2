@@ -161,7 +161,7 @@ class AlgorithmType(Enum):
         exercise="Analyser et corriger l'équilibrage d'un arbre",
         category="Structures de Données",
         function=lambda: __import__("app.algos.avl", fromlist=["get_balance"]).get_balance,
-        parameters=("tree"),
+        parameters=("tree",),
     )
 
     # NP Problems
@@ -256,7 +256,7 @@ class ExerciseManager:
             raise ValueError(f"Algorithme '{info.name}' non disponible")
 
         # Check if it's a placeholder function (returns a string)
-        if isinstance(algorithm_func, str) or (hasattr(algorithm_func, '__name__') and algorithm_func.__name__ == "_placeholder_function"):
+        if isinstance(algorithm_func, str) or (hasattr(algorithm_func, "__name__") and algorithm_func.__name__ == "_placeholder_function"):
             return algorithm_func, 0.0
 
         # Prepare parameters
